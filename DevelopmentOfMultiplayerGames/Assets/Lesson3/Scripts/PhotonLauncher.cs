@@ -2,47 +2,51 @@ using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 
-public class PhotonLauncher : MonoBehaviourPunCallbacks
+namespace Lesson3
 {
-    private void Awake()
+    public class PhotonLauncher : MonoBehaviourPunCallbacks
     {
-        PhotonNetwork.AutomaticallySyncScene = true;
-    }
+        private void Awake()
+        {
+            PhotonNetwork.AutomaticallySyncScene = true;
+        }
 
-    private void Start()
-    {
-        Connect();
-    }
+        private void Start()
+        {
+            Connect();
+        }
 
-    private void Connect()
-    {
-        if (PhotonNetwork.IsConnected)
-            return;
 
-        PhotonNetwork.ConnectUsingSettings();
-        PhotonNetwork.GameVersion = Application.version;
+        private void Connect()
+        {
+            if (PhotonNetwork.IsConnected)
+                return;
 
-        StartCoroutine(PhotonDisconect());
-    }
+            PhotonNetwork.ConnectUsingSettings();
+            PhotonNetwork.GameVersion = Application.version;
 
-    public override void OnConnectedToMaster()
-    {
-        Debug.Log("OnConnectedToMaster");
-        PhotonNetwork.CreateRoom("NewRoom");
-    }
+            StartCoroutine(PhotonDisconect());
+        }
 
-    public override void OnJoinedRoom()
-    {
-        Debug.Log("OnJoinedRoom");
-    }
+        public override void OnConnectedToMaster()
+        {
+            Debug.Log("OnConnectedToMaster");
+            PhotonNetwork.CreateRoom("NewRoom");
+        }
 
-    private IEnumerator PhotonDisconect()
-    {
-        yield return new WaitForSeconds(10);
+        public override void OnJoinedRoom()
+        {
+            Debug.Log("OnJoinedRoom");
+        }
 
-        if (PhotonNetwork.IsConnected)
-            PhotonNetwork.Disconnect();
+        private IEnumerator PhotonDisconect()
+        {
+            yield return new WaitForSeconds(10);
 
-        Debug.Log("Disconnect");
+            if (PhotonNetwork.IsConnected)
+                PhotonNetwork.Disconnect();
+
+            Debug.Log("Disconnect");
+        }
     }
 }

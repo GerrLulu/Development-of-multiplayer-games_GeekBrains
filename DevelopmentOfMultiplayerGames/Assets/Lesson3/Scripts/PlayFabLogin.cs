@@ -4,55 +4,58 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayFabLogin : MonoBehaviour
+namespace Lesson3
 {
-    [SerializeField] private Button _logInButton;
-    [SerializeField] private TextMeshProUGUI _textConnected;
-
-    LoginWithCustomIDRequest _request;
-
-
-    private void Start()
+    public class PlayFabLogin : MonoBehaviour
     {
-        if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId))
+        [SerializeField] private Button _logInButton;
+        [SerializeField] private TextMeshProUGUI _textConnected;
+
+        LoginWithCustomIDRequest _request;
+
+
+        private void Start()
         {
-            PlayFabSettings.staticSettings.TitleId = "F22B0";
+            if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId))
+            {
+                PlayFabSettings.staticSettings.TitleId = "F22B0";
+            }
+
+            _logInButton.onClick.AddListener(() => Connect());
         }
 
-        _logInButton.onClick.AddListener(() => Connect());
-    }
 
-    private void Connect()
-    {
-        _request = new LoginWithCustomIDRequest
+        private void Connect()
         {
-            CustomId = "GeekBrainsLesson3",
-            CreateAccount = true
-        };
+            _request = new LoginWithCustomIDRequest
+            {
+                CustomId = "GeekBrainsLesson3",
+                CreateAccount = true
+            };
 
-        PlayFabClientAPI.LoginWithCustomID(_request, OnLoginSuccess, OnLoginFailure);
-    }
+            PlayFabClientAPI.LoginWithCustomID(_request, OnLoginSuccess, OnLoginFailure);
+        }
 
-    private void OnLoginSuccess(LoginResult result)
-    {
-        Debug.Log("Congratulations, you made successful API call!");
+        private void OnLoginSuccess(LoginResult result)
+        {
+            Debug.Log("Congratulations, you made successful API call!");
 
-        _textConnected.text = "Conected";
-        _textConnected.color = Color.green;
-    }
+            _textConnected.text = "Conected";
+            _textConnected.color = Color.green;
+        }
 
-    private void OnLoginFailure(PlayFabError error)
-    {
-        var errorMessage = error.GenerateErrorReport();
-        Debug.LogError($"Something went wrong: {errorMessage}");
+        private void OnLoginFailure(PlayFabError error)
+        {
+            var errorMessage = error.GenerateErrorReport();
+            Debug.LogError($"Something went wrong: {errorMessage}");
 
-        _textConnected.text = "Not conected";
-        _textConnected.color = Color.red;
-    }
+            _textConnected.text = "Not conected";
+            _textConnected.color = Color.red;
+        }
 
-
-    private void OnDisable()
-    {
-        _logInButton.onClick.RemoveAllListeners();
+        private void OnDisable()
+        {
+            _logInButton.onClick.RemoveAllListeners();
+        }
     }
 }
