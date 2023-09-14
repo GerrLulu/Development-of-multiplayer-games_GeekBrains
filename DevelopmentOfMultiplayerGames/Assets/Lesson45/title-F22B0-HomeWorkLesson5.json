@@ -1,0 +1,160 @@
+{
+  "CatalogVersion": "HomeWorkLesson5",
+  "Catalog": [
+    {
+      "ItemId": "wood_sword",
+      "ItemClass": null,
+      "CatalogVersion": "HomeWorkLesson5",
+      "DisplayName": "Wood sword",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "WR": 100
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [
+        "sword",
+        "one hand",
+        "melee"
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "wood_dagger",
+      "ItemClass": null,
+      "CatalogVersion": "HomeWorkLesson5",
+      "DisplayName": "Wood dagger",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "WR": 50
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [
+        "dagger",
+        "one hand",
+        "melee"
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "barrel_lid",
+      "ItemClass": null,
+      "CatalogVersion": "HomeWorkLesson5",
+      "DisplayName": "Barrel lid",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "WR": 20
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [
+        "shield",
+        "one hand"
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "bow_for_hobbits",
+      "ItemClass": null,
+      "CatalogVersion": "HomeWorkLesson5",
+      "DisplayName": "Bow for hobbits",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "WR": 300
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "bow",
+        "two hand",
+        ""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "a_spear",
+      "ItemClass": null,
+      "CatalogVersion": "HomeWorkLesson5",
+      "DisplayName": "A spear",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "WR": 1000
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "spear",
+        "two hand",
+        "melee"
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    }
+  ],
+  "DropTables": []
+}
