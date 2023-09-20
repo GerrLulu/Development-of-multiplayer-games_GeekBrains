@@ -120,7 +120,7 @@ namespace Lesson6
         public void OnJoinedRoom()
         {
             Debug.Log("OnJoinedRoom");
-            _loadBalancingClient.CurrentRoom.IsOpen = false;
+            //_loadBalancingClient.CurrentRoom.IsOpen = false;
         }
 
         public void OnJoinRandomFailed(short returnCode, string message)
