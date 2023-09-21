@@ -14,8 +14,10 @@ namespace Lesson6
 
         [SerializeField] private Button _connectButton;
         [SerializeField] private Button _disconnectButton;
-        [SerializeField] private Button _updateButton;
+        [SerializeField] private Button _createRoomButton;
         [SerializeField] private Transform _transformPanel;
+        [SerializeField] private Toggle _isOpenRoom;
+        [SerializeField] private Toggle _onlyFriends;
 
         private LoadBalancingClient _loadBalancingClient;
         private TypedLobby _defailtLobby = new TypedLobby("default lobby", LobbyType.Default);
@@ -33,6 +35,7 @@ namespace Lesson6
             _disconnectButton.enabled = false;
             _connectButton.onClick.AddListener(ConnectLobby);
             _disconnectButton.onClick.AddListener(DisconnectLobby);
+            _createRoomButton.onClick.AddListener(CreateNewRoom);
         }
 
         private void Update ()
@@ -42,6 +45,12 @@ namespace Lesson6
 
             _loadBalancingClient.Service();
             _stateUiText.text = _loadBalancingClient.State.ToString();
+        }
+
+        private void OnDestroy()
+        {
+            _connectButton.onClick.RemoveAllListeners();
+            _disconnectButton.onClick.RemoveAllListeners();
         }
 
 
@@ -71,11 +80,29 @@ namespace Lesson6
                 else
                 {
                     _cachedRoomList[info.Name] = info;
-                    var connectRoomButton = new ConnectRoomButton(info.Name);
+                    var connectRoomButton = new ConnectRoomButton(info, _loadBalancingClient, _defailtLobby);
                     Instantiate(connectRoomButton, _transformPanel);
                     Debug.Log(_cachedRoomList[info.Name]);
                 }
             }
+        }
+
+        private void CreateNewRoom()
+        {
+            var roomOption = new RoomOptions
+            {
+                MaxPlayers = 2,
+                PublishUserId = true,
+                IsOpen = _isOpenRoom
+            };
+
+            var enterRoomParams = new EnterRoomParams
+            {
+                RoomOptions = roomOption,
+                Lobby = _defailtLobby
+            };
+
+            _loadBalancingClient.OpCreateRoom(enterRoomParams);
         }
 
 
