@@ -1,5 +1,8 @@
 using PlayFab;
 using PlayFab.ClientModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,6 +45,83 @@ namespace Lesson3
 
             _textConnected.text = "Conected";
             _textConnected.color = Color.green;
+
+            SetUserData(result.PlayFabId);
+
+            //MakePurchase();
+            GetInventory();
+        }
+
+        private void GetInventory()
+        {
+            PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), result => ShowInventory(result.Inventory),
+                OnLoginFailure);
+        }
+
+        private void ShowInventory(List<ItemInstance> inventory)
+        {
+            var firstItem = inventory.First();
+            Debug.Log($"{firstItem.ItemId}");
+            ConsumePotion(firstItem.ItemInstanceId);
+        }
+
+        private void ConsumePotion(string itemInstanceId)
+        {
+            PlayFabClientAPI.ConsumeItem(new ConsumeItemRequest
+            {
+                ConsumeCount = 1,
+                ItemInstanceId = itemInstanceId
+            },
+            result =>
+            {
+                Debug.Log("Complete ConsumeItem");
+            },
+            OnLoginFailure);
+        }
+
+        private void MakePurchase()
+        {
+            PlayFabClientAPI.PurchaseItem(new PurchaseItemRequest
+            {
+                CatalogVersion = "main",
+                ItemId = "health_potion",
+                Price = 3,
+                VirtualCurrency = "SC"
+            },
+            result =>
+            {
+                Debug.Log("Complete PurchaseItem");
+            },
+            OnLoginFailure);
+        }
+
+        private void SetUserData(string playFabId)
+        {
+            PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest
+            {
+                Data = new Dictionary<string, string>
+                {
+                    { "time_recieve_daile_reward", DateTime.UtcNow.ToString() }
+                }
+            },
+            result =>
+            {
+                Debug.Log("SetUserData");
+                GetUserData(playFabId, "time_recieve_daile_reward");
+            },
+            OnLoginFailure);
+        }
+
+        private void GetUserData(string playFabId, string keyData)
+        {
+            PlayFabClientAPI.GetUserData(new GetUserDataRequest
+            {
+                PlayFabId = playFabId
+            }, result =>
+            {
+                if (result.Data.ContainsKey(keyData))
+                    Debug.Log($"{keyData}: {result.Data[keyData].Value}");
+            }, OnLoginFailure);
         }
 
         private void OnLoginFailure(PlayFabError error)

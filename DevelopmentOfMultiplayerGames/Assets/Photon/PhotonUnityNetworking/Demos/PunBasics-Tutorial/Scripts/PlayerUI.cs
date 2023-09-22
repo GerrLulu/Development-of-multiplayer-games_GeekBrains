@@ -13,27 +13,29 @@ using UnityEngine.UI;
 
 namespace Photon.Pun.Demo.PunBasics
 {
-	#pragma warning disable 649
+#pragma warning disable 649
 
 	/// <summary>
 	/// Player UI. Constraint the UI to follow a PlayerManager GameObject in the world,
 	/// Affect a slider and text to display Player's name and health
 	/// </summary>
 	public class PlayerUI : MonoBehaviour
-    {
-        #region Private Fields
+	{
+		#region Private Fields
 
-	    [Tooltip("Pixel offset from the player target")]
-        [SerializeField]
-        private Vector3 screenOffset = new Vector3(0f, 30f, 0f);
+		[Tooltip("Pixel offset from the player target")]
+		[SerializeField]
+		private Vector3 screenOffset = new Vector3(0f, 30f, 0f);
 
-	    [Tooltip("UI Text to display Player's Name")]
-	    [SerializeField]
-	    private Text playerNameText;
+		[Tooltip("UI Text to display Player's Name")]
+		[SerializeField]
+		private Text playerNameText;
 
-	    [Tooltip("UI Slider to display Player's Health")]
-	    [SerializeField]
-	    private Slider playerHealthSlider;
+		[Tooltip("UI Slider to display Player's Health")]
+		[SerializeField]
+		private Slider playerHealthSlider;
+
+		[SerializeField] private Text _idText;
 
         PlayerManager target;
 
@@ -79,6 +81,8 @@ namespace Photon.Pun.Demo.PunBasics
 			if (playerHealthSlider != null) {
 				playerHealthSlider.value = target.Health;
 			}
+
+			_idText.text = target.Id.ToString();
 		}
 
 		/// <summary>
