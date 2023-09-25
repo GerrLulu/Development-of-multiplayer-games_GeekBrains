@@ -7,15 +7,15 @@ namespace Lesson4
 {
     public class PlayfabLoginLesson4 : MonoBehaviour
     {
-        private const string AuthGuidKey = "auth_guid_key";
+        private const string AUTH_GUID_KEY = "auth_guid_key";
 
         private void Start()
         {
             if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId))
                 PlayFabSettings.staticSettings.TitleId = "F22B0";
 
-            var needCreation = PlayerPrefs.HasKey(AuthGuidKey);
-            var id = PlayerPrefs.GetString(AuthGuidKey, Guid.NewGuid().ToString());
+            var needCreation = PlayerPrefs.HasKey(AUTH_GUID_KEY);
+            var id = PlayerPrefs.GetString(AUTH_GUID_KEY, Guid.NewGuid().ToString());
 
             var request = new LoginWithCustomIDRequest
             {
@@ -26,7 +26,7 @@ namespace Lesson4
             PlayFabClientAPI.LoginWithCustomID(request,
                 result =>
                 {
-                    PlayerPrefs.SetString(AuthGuidKey, id);
+                    PlayerPrefs.SetString(AUTH_GUID_KEY, id);
                     OnLoginSuccess(result);
                 }, OnLoginError);
         }

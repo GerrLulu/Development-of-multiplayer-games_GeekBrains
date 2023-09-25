@@ -70,7 +70,7 @@ namespace Lesson7
                 return;
             }
 
-            PhotonNetwork.LoadLevel("PunBasics-Room for " + PhotonNetwork.CurrentRoom.PlayerCount);
+            PhotonNetwork.LoadLevel("Room for 4 Lesson7");
         }
 
 

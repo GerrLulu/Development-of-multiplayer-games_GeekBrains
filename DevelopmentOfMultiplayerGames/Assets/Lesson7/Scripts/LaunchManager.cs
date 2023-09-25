@@ -28,8 +28,6 @@ namespace Lesson7
         private void Start()
         {
             _buttonPlay.onClick.AddListener(Connect);
-
-
         }
 
         private void OnDestroy()
@@ -104,6 +102,7 @@ namespace Lesson7
         public override void OnJoinedRoom()
         {
             LogFeedback("<Color=Green>OnJoinedRoom</Color> with " + PhotonNetwork.CurrentRoom.PlayerCount + " Player(s)");
+            PhotonNetwork.LoadLevel("Room for 4 Lesson7");
         }
     }
 }
