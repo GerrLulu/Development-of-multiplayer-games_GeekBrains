@@ -1,18 +1,16 @@
-﻿using PlayFab.ClientModels;
+﻿using Lesson5;
 using PlayFab;
+using PlayFab.ClientModels;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using TMPro;
 
 namespace Lesson4
 {
     public class CreateAccountWindow : AccountDataWindowBase
     {
         [SerializeField] private InputField _mailField;
-
         [SerializeField] private Button _createAccountButton;
-
         [SerializeField] private TMP_Text _titleLabel;
 
         private string _mail;
@@ -28,8 +26,8 @@ namespace Lesson4
 
         private void CreateAccount()
         {
-            _isLoading = true;
-            StartCoroutine(Load());
+            var loadUi = new LoadingUi(_titleLabel);
+            loadUi.StartLoad();
 
             PlayFabClientAPI.RegisterPlayFabUser(new RegisterPlayFabUserRequest
             {
@@ -38,7 +36,7 @@ namespace Lesson4
                 Password = _password
             }, result =>
             {
-                _isLoading = false;
+                loadUi.StopLoad();
                 Debug.Log($"Success: {_userName}");
                 EnterInGameScene();
             }, error =>
@@ -50,19 +48,6 @@ namespace Lesson4
         private void UpdateMail(string mail)
         {
             _mail = mail;
-        }
-
-        private IEnumerator Load()
-        {
-            while (_isLoading)
-            {
-                _titleLabel.text = "Loading .";
-                yield return new WaitForSeconds(0.1f);
-                _titleLabel.text = "Loading ..";
-                yield return new WaitForSeconds(0.1f);
-                _titleLabel.text = "Loading ...";
-                yield return new WaitForSeconds(0.1f);
-            }
         }
     }
 }

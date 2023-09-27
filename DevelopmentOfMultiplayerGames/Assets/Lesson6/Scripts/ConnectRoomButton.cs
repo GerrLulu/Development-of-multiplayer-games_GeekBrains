@@ -13,7 +13,7 @@ namespace Lesson6
         private RoomInfo _roomInfo;
         private LoadBalancingClient _lbc;
         private TypedLobby _lobby;
-        private int _maxPlayerCount = 2;
+        //private int _maxPlayerCount = 2;
 
 
         public ConnectRoomButton(RoomInfo info, LoadBalancingClient lbc, TypedLobby typedLobby)

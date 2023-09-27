@@ -1,14 +1,12 @@
-﻿using Lesson8;
+﻿using Lesson5;
+using Lesson8;
 using PlayFab;
 using PlayFab.ClientModels;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 namespace Lesson4
 {
@@ -20,16 +18,20 @@ namespace Lesson4
         [SerializeField] private Button _createCharacterButton;
         [SerializeField] private TMP_InputField _inputField;
         [SerializeField] private List<SlotCharacterWidget> _slots;
+        [SerializeField] private Item _itemPrefub;
 
-        private TMP_Text _textInfoCatalog;
-        private bool _isLoading = true;
         private string _characterName;
 
 
         private void Start ()
         {
-            StartCoroutine(Load());
+            var _loadingUi = new LoadingUi(_titleLabel);
+            _loadingUi.StartLoad();
+
             PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(), OnGetAccount, OnError);
+
+            _loadingUi.StopLoad();
+
             PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest(), OnGetCatalogSuccess, OnError);
 
             GetCharacters();
@@ -40,6 +42,7 @@ namespace Lesson4
             _inputField.onValueChanged.AddListener(OnNameChanged);
             _createCharacterButton.onClick.AddListener(CreateCharacter);
         }
+
 
         private void CreateCharacter()
         {
@@ -124,7 +127,6 @@ namespace Lesson4
 
         private void OnGetAccount(GetAccountInfoResult result)
         {
-            _isLoading = false;
             _titleLabel.text = $"Playfab id: {result.AccountInfo.PlayFabId}\n" +
                 $"Playfab name: {result.AccountInfo.Username}";
         }
@@ -133,19 +135,6 @@ namespace Lesson4
         {
             var errorMessage = error.GenerateErrorReport();
             Debug.Log(errorMessage);
-        }
-
-        private IEnumerator Load()
-        {
-            while( _isLoading)
-            {
-                _titleLabel.text = "Loading .";
-                yield return new WaitForSeconds(0.1f);
-                _titleLabel.text = "Loading ..";
-                yield return new WaitForSeconds(0.1f);
-                _titleLabel.text = "Loading ...";
-                yield return new WaitForSeconds(0.1f);
-            }
         }
 
 
@@ -159,10 +148,12 @@ namespace Lesson4
         {
             foreach (CatalogItem item in catalog)
             {
-                Instantiate(_titleLabel, _transform);
-                _textInfoCatalog.text = item.DisplayName;
-
-                Debug.Log($"{item.ItemId}");
+                if (!item.CanBecomeCharacter)
+                {
+                    _itemPrefub.ItemText.text = item.DisplayName;
+                    Instantiate(_itemPrefub, _transform);
+                    Debug.Log($"{item.ItemId}");
+                }
             }
         }
     }
