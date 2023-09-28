@@ -64,7 +64,10 @@ namespace Lesson4
                 CharacterStatistics = new Dictionary<string, int>
                 {
                     {"Level", 1},
-                    {"Gold  ", 0}
+                    {"Damage", 10},
+                    {"HP", 100},
+                    {"XP", 0},
+                    {"Gold ", 0}
                 }
             }, result =>
             {
@@ -106,7 +109,7 @@ namespace Lesson4
                 foreach(var slot in _slots)
                     slot.ShowEptySlot();
             }
-            else if(characters.Count > 0 && characters.Count < _slots.Count)
+            else if(characters.Count > 0 && characters.Count <= _slots.Count)
             {
                 PlayFabClientAPI.GetCharacterStatistics(new GetCharacterStatisticsRequest
                 {
@@ -114,9 +117,13 @@ namespace Lesson4
                 }, result =>
                 {
                     var level = result.CharacterStatistics["Level"].ToString();
-                    var gold = result.CharacterStatistics["Gold"].ToString();
+                    var damage = result.CharacterStatistics["Damage"].ToString();
+                    var hp = result.CharacterStatistics["HP"].ToString();
+                    var xp = result.CharacterStatistics["XP"].ToString();
+                    //var gold = result.CharacterStatistics["Gold "].ToString();+
+                    var gold = "0";
 
-                    _slots.First().ShowInfoCharacter(characters.First().CharacterName, level, gold);
+                    _slots.First().ShowInfoCharacter(characters.First().CharacterName, level, damage, hp, xp, gold);
                 }, OnError); ;
             }
             else
